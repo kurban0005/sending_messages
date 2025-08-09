@@ -18,7 +18,7 @@ class EditUserForm(forms.ModelForm):
         labels = {'phone_number':'номер телефона'}
         widgets = {'phone_number':forms.TextInput(attrs={'cols': 60,
                                                          'rows': 1,
-                                                         'placeholder':'+7 999 1234567',})}
+                                                         'placeholder':'+7 999 0000000',})}
 
 
 
