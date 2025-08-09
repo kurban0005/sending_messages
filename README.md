@@ -29,7 +29,8 @@
    - TWILIO_PHONE_NUMBER:'your_twilio_phone_number'
    - TWILIO_ACCOUNT_SID:'your_twilio_account_sid'
    - TWILIO_AUTH_TOKEN:'your_twilio_auth_token'
-5. Вручную или командой `make bot` запустить бота
+5. Выполните миграцию вручную или командой `make migrate`
+6. Вручную или командой `make bot` запустить бота
 6. Вручную или командой `make run` запустить сервер
 7. Зайти на сайт `http://127.0.0.1:8000/`
 8. Авторизоваться через телеграм, ввести свои данные при необходимости, и нажать на рассылку.
