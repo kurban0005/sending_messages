@@ -1,0 +1,37 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+
+<div>
+    <h5>Вход</h5>
+    <br/>
+    <form method="POST">
+        {% csrf_token %}
+        <p><label>Введите логин :</label>
+            <br/>
+            <input type="text" name="username" required></p>
+        <p><label>Введите пароль :</label>
+            <br/>
+            <input type="password" name="password" required></p>
+        <p>
+            <button name="submit" class="btn btn-dark">Подтвердить</button>
+        </p>
+    </form>
+    {% if error %}
+    <p>Произошла ошибка с логином или паролем</p>
+    <p>Попробуйте ещё раз или создайте новый аккаунт</p>
+    {% endif %}
+    <br/><br/>
+    <div>
+        <form action="https://t.me/{{ TELEGRAM_BOT_NAME }}?start={{ token }}" target="_blank" method="post">
+            <button type="submit" name="telegram_login" class="btn btn-primary btn-sm">Войти через Telegram</button>
+        </form>
+    </div>
+    <br/>
+    <a class="btn btn-dark btn-sm" href="{% url 'users_app:register' %}">Создать новый аккаунт</a>
+    <br/>
+    <br/>
+    <a class="btn btn-dark btn-sm"
+       href="{% url 'main_app:index' %}">Назад</a>
+</div>
+{% endblock content %}

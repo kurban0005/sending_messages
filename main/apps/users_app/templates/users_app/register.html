@@ -1,0 +1,33 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div>
+        <h5>Регистрация</h5>
+        <br/>
+        <form action="{% url 'users_app:register' %}" method="POST">
+            {% csrf_token %}
+            <div class="linkholder">
+                Введите имя :
+                <br/>
+                {{form.username}}
+                <br/><br/>
+                Введите пароль :
+                <br/>
+                {{form.password1}}
+                <br/>
+                Подтвердите пароль :
+                <br/>
+                {{form.password2}}
+                <br/><br/>
+            </div>
+            <button name="submit" class="btn btn-dark ">Подтвердить</button>
+            <input type="hidden" name="next" value="{% url 'main_app:index' %}"/>
+        </form>
+        {% if error %}
+        <p>Произошла ошибка с логином или паролем</p>
+        <p>Попробуйте ещё раз. Убедитесь в правильности ввода.</p>
+        {% endif %}
+        <br/>
+        <a class="btn btn-dark btn-sm" href="{% url 'users_app:login' %}">Назад</a>
+</div>
+{% endblock content %}

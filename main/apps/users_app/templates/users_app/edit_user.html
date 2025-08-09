@@ -1,0 +1,38 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<div>
+    <h5>Регистрация</h5>
+    <br/>
+    <form action="{% url 'users_app:edit_user' %}" method="POST">
+        {% csrf_token %}
+        <div class="linkholder">
+            Введите имя :
+            <br/>
+            {{form.username}}
+            <br/><br/>
+            Введите номер чере :
+            <br/>
+            {{form.phone_number}}
+            <br/>
+            Введите email :
+            <br/>
+            {{form.email}}
+            <br/>
+            <br/>
+            {% if not user.is_superuser %}
+            <a class="btn btn-danger btn-sm" href="{% url 'users_app:user_is_superuser' %}">Стать
+                СУПЕРПОЛЬЗОВАТЕЛЕМ</a><br/><br/>
+            {% endif %}
+        </div>
+        <button name="submit" class="btn btn-dark ">Подтвердить</button>
+        <input type="hidden" name="next" value="{% url 'main_app:index' %}"/>
+    </form>
+    {% if error %}
+    <p>Произошла ошибка.</p>
+    <p>Попробуйте ещё раз. Убедитесь в правильности ввода.</p>
+    {% endif %}
+    <br/>
+    <a class="btn btn-dark btn-sm" href="{% url 'users_app:login' %}">Назад</a>
+</div>
+{% endblock content %}

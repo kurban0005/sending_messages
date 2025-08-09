@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Send..Mess..</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'main_app:index' %}">
+            Send..Mess..</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item"></li>
+                {% if user.is_superuser %}
+                <li class="nav-item"><a class="nav-link"> >>>>>>> </a></li>
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin/">
+                        Панель управления</a></li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+                {% if user.is_authenticated %}
+                <li>
+                    <r>{{ user.username }}</r>
+                    <span class="navbar-text me-2"> </span>
+                </li>
+                <li>
+                    <form action="{% url 'users_app:logout' %}" method='post'>
+                        {% csrf_token %}
+                        <button name='submit' class='btn btn-outline-secondary btn-sm'>Выход</button>
+                    </form>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users_app:login' %}">Вход</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+    {% block page_header %}
+    {% endblock page_header %}
+
+    {% block content %}
+    {% endblock content %}
+</main>
+
+</body>
+</html>

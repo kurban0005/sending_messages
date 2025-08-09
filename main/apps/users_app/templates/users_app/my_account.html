@@ -1,0 +1,28 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+<br/>
+<div style="width: 70%; margin: 0 auto; text-align: center;">
+    <h6>Личный кабинет</h6>
+    <br/>
+    <div class="pb-1 mb-1 border-bottom"></div>
+    <div style="text-align: left;">
+        <br/>
+        <r>user_name : {{user.username.upper}}</r>
+        <br/><br/>
+        <r>Номер телефона : {{user.phone_number}}</r>
+        <br/><br/>
+        <r>Email : {{user.email}}</r>
+        <br/><br/>
+        <r>Телеграм ID : {{user.telegram_id}}</r>
+        <br/><br/><br/>
+
+    </div>
+    <div class="pb-1 mb-1 border-bottom"></div>
+    <br/>
+</div>
+<div style="width: 70%; margin: 0 auto; text-align: center;">
+    <a class="btn btn-dark btn-sm" href="{% url 'main_app:index' %}">Назад</a>
+</div>
+<br/><br/><br/><br/><br/><br/>
+{% endblock content %}
