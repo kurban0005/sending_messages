@@ -3,6 +3,7 @@ from dotenv import load_dotenv, find_dotenv
 from ....users_app.models import User
 import telebot
 import os
+from loguru import logger
 
 load_dotenv(find_dotenv())
 bot = telebot.TeleBot(os.getenv('TELEGRAM_BOT_TOKEN'))
@@ -13,9 +14,9 @@ class Command(BaseCommand):
     help = 'Run your Telegram-bot'
 
     def handle(self, *args, **options):
-        print('БОТ запущен.')
+        logger.info(f'\nБОТ запущен.')
         bot.infinity_polling()  # запуск бота
-        print('БОТ выключен.')
+        logger.info(f'\nБОТ выключен.')
 
 
 @bot.message_handler(commands=['start'])
@@ -33,7 +34,7 @@ def start(message):
                                                           url=f'http://{os.getenv("DOMAIN")}/users_app/login/'))
             bot.send_message(message.chat.id, f"Вход выполнен успешно", reply_markup=markup)
         except Exception as e:
-            print(f'Ошибка при обработке сообщения: {e}')
+            logger.error(f'\nОшибка при обработке сообщения: {e}')
             bot.send_message(chat_id=telegram_id,
                              text="Произошла ошибка при попытке входа. Попробуйте еще раз.")
     else:
