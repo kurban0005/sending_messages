@@ -1,6 +1,12 @@
 run:
 	python main/manage.py runserver
 
+bot:
+	python main/manage.py run_bot
+
+test:
+	python main/manage.py test
+
 migrate:
 	python main/manage.py makemigrations main_app
 	python main/manage.py makemigrations users_app
@@ -20,11 +26,7 @@ collectstatic:
 flush:
 	python main/manage.py flush
 
-admin:
+superuser:
 	python main/manage.py createsuperuser
 
-chat:
-	python main/manage.py run_chat
 
-bot:
-	python main/manage.py run_bot

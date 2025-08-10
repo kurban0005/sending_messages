@@ -2,7 +2,7 @@
 
 {% block content %}
 <div>
-    <h5>Регистрация</h5>
+    <h5>Редактирование профиля</h5>
     <br/>
     <form action="{% url 'users_app:edit_user' %}" method="POST">
         {% csrf_token %}
@@ -29,8 +29,9 @@
         <input type="hidden" name="next" value="{% url 'main_app:index' %}"/>
     </form>
     {% if error %}
-    <p>Произошла ошибка.</p>
-    <p>Попробуйте ещё раз. Убедитесь в правильности ввода.</p>
+    <br/>
+    <p>Ошибка.</p>
+    <p>Убедитесь в правильности ввода почты и телефона (+79990001188).</p>
     {% endif %}
     <br/>
     <a class="btn btn-dark btn-sm" href="{% url 'users_app:login' %}">Назад</a>

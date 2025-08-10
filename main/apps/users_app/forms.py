@@ -4,6 +4,9 @@ from .models import User
 from phonenumber_field.formfields import PhoneNumberField
 
 class RegisterForm(UserCreationForm):
+    """
+    Форма регистрации пользователя.
+    """
     class Meta:
         model = User
         fields = ("username",)
@@ -11,12 +14,13 @@ class RegisterForm(UserCreationForm):
 
 
 class EditUserForm(forms.ModelForm):
-    number = PhoneNumberField(region="RU")
+    """
+    Форма редактирования данных пользователя.
+    """
     class Meta:
         model = User
         fields = ("username", "phone_number", "email",)
-        labels = {'phone_number':'номер телефона'}
-        widgets = {'phone_number':forms.TextInput(attrs={'cols': 60,
+        widgets = {'phone_number':forms.TextInput(attrs={'cols': 13,
                                                          'rows': 1,
                                                          'placeholder':'+7 999 0000000',})}
 

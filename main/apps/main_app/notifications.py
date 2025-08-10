@@ -4,6 +4,7 @@ from .management.commands.run_bot import bot
 from .models import Notification
 from dotenv import load_dotenv
 import os
+from loguru import logger
 
 load_dotenv()
 
@@ -22,7 +23,7 @@ def send_all_notification(user, message):
         notification.email_sent = True  # смена статуса отправки
         notification.save()
     except Exception as e:
-        print(f'ОШИБКА. НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ ЕМЕЙЛ: {e}')
+        logger.error(f'\nНЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ EMAIL: {e}.')
 
     try:  # Попробовать отправить по SMS
         load_dotenv()
@@ -34,7 +35,7 @@ def send_all_notification(user, message):
         notification.sms_sent = True  # смена статуса отправки
         notification.save()
     except Exception as e:
-        print(f'ОШИБКА. НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СМС: {e}')
+        logger.error(f'\nНЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СМС: {e}')
 
     try:  # Попробовать отправить в Telegram
         bot.send_message(chat_id=user.telegram_id, text=message)
@@ -42,7 +43,7 @@ def send_all_notification(user, message):
         notification.save()
         return
     except Exception as e:
-        print(f'ОШИБКА. НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СООБЩЕНИЕ В ТЕЛЕГРАМ: {e}')
+        logger.error(f'\nНЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СООБЩЕНИЕ В ТЕЛЕГРАМ: {e}')
 
 
 def send_sms_notification(user, message):
@@ -59,7 +60,7 @@ def send_sms_notification(user, message):
         notification.save()
         return
     except Exception as e:
-        print(f'ОШИБКА. НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СМС: {e}')
+        logger.error(f'\nОШИБКА. НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ СМС: {e}')
 
 
 def send_email_notification(user, message):
@@ -76,9 +77,9 @@ def send_email_notification(user, message):
             notification.save()
             return
         else:
-            print('ОШИБКА. УКАЖИТЕ СВОЙ EMAIL')
+            logger.error(f'\nУКАЖИТЕ СВОЙ EMAIL')
     except Exception as e:
-        print(f'НЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ EMAIL: {e}')
+        logger.error(f'\nНЕ ПОЛУЧИЛОСЬ ОТПРАВИТЬ EMAIL: {e}')
 
 
 def send_telegram_notification(user, message):
@@ -90,4 +91,4 @@ def send_telegram_notification(user, message):
         notification.save()
         return
     except Exception as e:
-        print(f'СООБЩЕНИЕ В ТЕЛЕГРАМ НЕ ДОСТАВЛЕНО: {e}')
+        logger.error(f'\nСООБЩЕНИЕ В ТЕЛЕГРАМ НЕ ДОСТАВЛЕНО: {e}')
